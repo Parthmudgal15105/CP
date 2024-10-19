@@ -78,8 +78,41 @@ long long sqrt(long long x) {
 }
 
 void solve() {
-   
+    int n, k;
+    cin >> n >> k;
+    vi cards(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> cards[i];
+    }
+
+    // Function to check if a target deck size is achievable
+    auto canFormDeckSize = [&](int deckSize) {
+        int requiredCards = 0;
+        for (int i = 0; i < n; i++) {
+            if (cards[i] < deckSize) {
+                requiredCards += (deckSize - cards[i]);
+            }
+        }
+        return requiredCards <= k;
+    };
+
+    int low = 1, high = n, ans = 0;
+
+    // Binary search to find the maximum deck size
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (canFormDeckSize(mid)) {
+            ans = mid;  // mid is a valid deck size
+            low = mid + 1;  // Try to find a larger valid size
+        } else {
+            high = mid - 1;  // Try smaller sizes
+        }
+    }
+
+    cout << ans << nl;  // Output the maximum deck size
 }
+
 
 int main() {
     ios::sync_with_stdio(0);

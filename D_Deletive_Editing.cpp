@@ -6,19 +6,21 @@ using namespace std;
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
 #pragma GCC optimization("unroll-loops")
-
+ 
 #define nl '\n'
 #define sp ' '
 #define pi 2 * acos(0.0)
-
+ 
+ 
 // Control Flow
 #define FOR(i, a, b) for (int i = a; i < (b); i++)
 #define F0R(i, a) for (int i = 0; i < (a); i++)
 #define FORd(i, a, b) for (int i = (b)-1; i >= a; i--)
 #define F0Rd(i, a) for (int i = (a)-1; i >= 0; i--)
 #define trav(a, x) for (auto &a : x)
-
-// Types of declarations
+// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)
+ 
+// Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
 #define ull unsigned long long
@@ -30,30 +32,31 @@ using namespace std;
 #define vvi vector<vector<int>>
 #define vii vector<pair<int, int>>
 #define pii pair<int, int>
-
-// Utils
+ 
+// Utils ///////////////////////////////////////////////
 #define len(x) int((x).size())
 #define pb push_back
 #define all(n) n.begin(), n.end()
 #define rall(n) n.rbegin(), n.rend()
-
-// Constants
+ 
+// Constants/////////////////////////////////////////////
 const ll MOD = 1e9 + 7;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-// Odd Even
+ 
+// Odd Even /////////////////////////////////////////////
 bool odd(ll num) { return ((num & 1) == 1); }
 bool even(ll num) { return ((num & 1) == 0); }
 
-// Prime check
+//////////////////////////////////////////////////////// Prime
+
 bool isPrime(int n) {
-    for (int i = 2; i * i <= n; i++) {
+    for (int i = 2; i * i <= n; i ++) {
         if (n % i == 0) return false;
     }
     return true;
 }
 
-// GCD & LCM
+///////////////////////////////////////////////////////// LCM GCD
 long long gcd(long long a, long long b) {
     while (b != 0) {
         long long temp = b;
@@ -65,8 +68,8 @@ long long gcd(long long a, long long b) {
 long long lcm(long long a, long long b) {
     return (a / gcd(a, b)) * b; 
 }
+////////////////////////////////////////////////////////// SQR ROOT
 
-// Square Root
 long long sqrt(long long x) {
     long long s = 0, e = 2e9, res = s;
     while (s <= e) {
@@ -77,18 +80,52 @@ long long sqrt(long long x) {
     return res;
 }
 
-void solve() {
-   
-}
+/*----------------------------------------------------------------------------*/
+void solve(){
+     string s, t;
+    cin >> s >> t;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    map<char,int> m1;
+    for(auto ch:s){
+        m1[ch]++;
+    }
+    map<char,int> m2;
+    for(auto ch:t){  
+            m2[ch]++;  
+    }
 
-    int t = 1;
-    cin >> t;
-    while (t--)
-        solve();
-    
-    return 0;
+    int i=0,j=0;
+
+    while(i<s.size() && j<t.size()){
+        if(s[i] == t[j]){
+            if(m1[s[i] < m2[t[j]]]){
+                break;
+            }
+            if(m1[s[i]] == m2[t[j]]){
+                //match
+                m2[t[j]]--;
+                j++;
+            }
+        }
+        m1[s[i]]--;
+        i++;
+    }
+    if(j == t.size())
+		cout<<"Yes"<<nl;
+	else
+		cout<<"No"<<nl;
+    }
+ 
+/*
+
+*/
+ 
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+ 
+	int t=1;
+	cin>>t;
+	while(t--)
+		solve();
 }
