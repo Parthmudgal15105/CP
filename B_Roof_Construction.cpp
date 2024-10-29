@@ -78,27 +78,7 @@ long long sqrt(long long x) {
 }
 
 void solve() {
-    int n, r, b;
-    cin >> n >> r >> b;
-
-    string ans;
-    int reds_per_block = r / (b + 1);
-    int remaining_reds = r % (b + 1);
-
-    for (int i = 0; i < b; i++) {
-        for (int j = 0; j < reds_per_block; j++)
-            ans.push_back('R');
-        if (remaining_reds) {
-            ans.push_back('R');
-            remaining_reds--;
-        }
-        ans.push_back('B');
-    }
-
-    for (int i = 0; i < reds_per_block; i++)
-        ans.push_back('R');
-
-    cout << ans << nl;
+   
 }
 
 int main() {
