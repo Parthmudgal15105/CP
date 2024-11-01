@@ -77,9 +77,33 @@ long long sqrt(long long x) {
     return res;
 }
 
-void solve(){
- 
+void solve() {
+    ll w, h;
+    cin >> w >> h;
+
+    ll maxArea = 0;
+
+    for (int side = 0; side < 4; side++) {
+        int k;
+        cin >> k;
+
+        vll points(k);
+        for (int j = 0; j < k; j++) {
+            cin >> points[j];
+        }
+
+        // Calculate width or height based on the side
+        ll length = points[k - 1] - points[0];
+        if (side < 2) { // Horizontal sides
+            maxArea = max(maxArea, length * h);
+        } else { // Vertical sides
+            maxArea = max(maxArea, length * w);
+        }
+    }
+
+    cout << maxArea << nl;
 }
+
 
 int main() {
     ios::sync_with_stdio(0);
