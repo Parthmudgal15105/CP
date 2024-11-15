@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <algorithm>
+
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 // Add the necessary include paths to the compiler flags
@@ -17,8 +17,9 @@ using namespace std;
 #define FORd(i, a, b) for (int i = (b) - 1; i >= a; i--)
 #define F0Rd(i, a) for (int i = (a) - 1; i >= 0; i--)
 #define trav(a, x) for (auto &a : x)
+// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)
 
-// Types of declarations
+// Types
 #define ui unsigned int
 #define us unsigned short
 #define ull unsigned long long
@@ -41,98 +42,68 @@ using namespace std;
 const ll MOD = 1e9 + 7;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-// Odd Even
+// Helper Functions
 bool odd(ll num) { return ((num & 1) == 1); }
 bool even(ll num) { return ((num & 1) == 0); }
-
-// Prime check
-bool isPrime(int n)
+ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng); }
+ll nCk(ll n, ll k)
 {
-    for (int i = 2; i * i <= n; i++)
+    ll res = 1;
+    for (ll i = 0; i < k; i++)
     {
-        if (n % i == 0)
-            return false;
-    }
-    return true;
-}
-
-// GCD & LCM
-long long gcd(long long a, long long b)
-{
-    while (b != 0)
-    {
-        long long temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-}
-long long lcm(long long a, long long b)
-{
-    return (a / gcd(a, b)) * b;
-}
-
-// Square Root
-long long sqrt(long long x)
-{
-    long long s = 0, e = 2e9, res = s;
-    while (s <= e)
-    {
-        long long m = (s + e) / 2;
-        if (m * m <= x)
-            res = m, s = m + 1;
-        else
-            e = m - 1;
+        res = res * (n - i);
+        res = res / (i + 1);
     }
     return res;
 }
-
+/*----------------------------------------------------------------------------*/
 void solve()
 {
-    int n, x;
-    cin >> n >> x;
-    vi a(n), b(n);
-    F0R(i, n)
-        cin >> a[i];
-    F0R(i, n)
-        cin >> b[i];
+    int n;
+    cin >> n;
 
-    int wins = 0;
-    vi need;
-    F0R(i, n)
+    vector<pair<int, int>> a(n), b(n), c(n);
+    for (int i = 0; i < n; i++)
     {
-        if (a[i] > b[i])
-            wins++;
-        else
-            need.pb(b[i] - a[i] + 1);
+        cin >> a[i].first;
+        a[i].second = i;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i].first;
+        b[i].second = i;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> c[i].first;
+        c[i].second = i;
     }
 
-    int reqWins = n / 2 + 1;
-    if (wins >= reqWins)
-    {
-        cout << "YES" << nl;
-        return;
-    }
+    sort(a.rbegin(), a.rend());
+    sort(b.rbegin(), b.rend());
+    sort(c.rbegin(), c.rend());
 
-    sort(all(need));
-    trav(v, need)
+    long long ans = 0;
+
+    for (int i = 0; i < 3; i++)
     {
-        if (x >= v)
+        for (int j = 0; j < 3; j++)
         {
-            x -= v;
-            wins++;
-            if (wins >= reqWins)
+            for (int k = 0; k < 3; k++)
             {
-                cout << "YES" << nl;
-                return;
+                if (a[i].second != b[j].second && b[j].second != c[k].second &&
+                    c[k].second != a[i].second)
+                {
+                    ans = max(ans, 0LL + a[i].first + b[j].first + c[k].first);
+                }
             }
         }
-        else
-            break;
     }
-
-    cout << "NO" << nl;
+    cout << ans << '\n';
 }
+
+/*
+ */
 
 int main()
 {
@@ -143,6 +114,4 @@ int main()
     cin >> t;
     while (t--)
         solve();
-
-    return 0;
 }
