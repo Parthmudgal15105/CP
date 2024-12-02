@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-// Add the necessary include paths to the compiler flags
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
 #pragma GCC optimization("unroll-loops")
@@ -10,14 +9,6 @@ using namespace std;
 #define nl '\n'
 #define sp ' '
 #define pi 2 * acos(0.0)
-
-// Control Flow
-#define FOR(i, a, b) for (int i = a; i < (b); i++)
-#define F0R(i, a) for (int i = 0; i < (a); i++)
-#define FORd(i, a, b) for (int i = (b) - 1; i >= a; i--)
-#define F0Rd(i, a) for (int i = (a) - 1; i >= 0; i--)
-#define trav(a, x) for (auto &a : x)
-// #define uid(a, b) uniform_int_distribution<int>(a, b)(rng)
 
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
@@ -31,16 +22,6 @@ using namespace std;
 #define vvi vector<vector<int>>
 #define vii vector<pair<int, int>>
 #define pii pair<int, int>
-
-// Utils ///////////////////////////////////////////////
-#define len(x) int((x).size())
-#define pb push_back
-#define all(n) n.begin(), n.end()
-#define rall(n) n.rbegin(), n.rend()
-
-// Constants/////////////////////////////////////////////
-const ll MOD = 1e9 + 7;
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 // Odd Even /////////////////////////////////////////////
 bool odd(ll num) { return ((num & 1) == 1); }
@@ -89,14 +70,23 @@ long long sqrt(long long x)
     return res;
 }
 
+/*
+check all edge cases
+check for integer overflow
+check for corner cases
+check for constraints
+check for time complexity
+check for array bounds
+check for negative values
+*/
+
 /*----------------------------------------------------------------------------*/
 void solve()
 {
 }
 
 /*
-
-*/
+ */
 
 int main()
 {
