@@ -1,22 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main()
+
+#define ll long long
+#define pb push_back
+#define all(x) x.begin(), x.end()
+#define fi first
+#define se second
+#define endl '\n'
+#define fast_io              \
+    ios::sync_with_stdio(0); \
+    cin.tie(0);              \
+    cout.tie(0)
+
+const ll MOD = 1e9 + 7;
+const ll INF = 1e18;
+
+void solve()
 {
-
-    int n;
-    cin >> n;
-
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
-
-    cout << "YES" << endl;
-    cout << "NO" << endl;
 }
 
-for (int i = 0; i < a.size(); i++)
+int main()
 {
-    cout << a[i] << " ";
+    fast_io;
+    int t = 1;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
 }
