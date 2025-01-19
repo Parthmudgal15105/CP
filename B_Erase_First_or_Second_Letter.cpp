@@ -81,21 +81,36 @@ check for negative values
 */
 
 /*----------------------------------------------------------------------------*/
+/*
+Problem: B_Erase_First_or_Second_Letter
+For each test case:
+1. Given a string s of length n
+2. In each operation, you can delete either the first or second character of the current string
+3. Count how many different strings you can get after any number of operations
+*/
+
 void solve()
 {
     int n;
     cin >> n;
     string s;
     cin >> s;
+    // Track which characters we've seen (using array of size 26 for lowercase letters)
     vector<int> f(26);
 
     long long answer = 0;
 
+    // For each position in string
     for (int i = 0; i < n; i++)
     {
+        // If we haven't seen this character before
         if (!f[s[i] - 'a'])
         {
+            // Mark it as seen
             f[s[i] - 'a'] = 1;
+            // Add number of possible strings that can be formed
+            // when this new character is encountered
+            // (n-i) represents all possible suffixes from current position
             answer += (n - i);
         }
     }
@@ -104,7 +119,13 @@ void solve()
 }
 
 /*
- */
+Example:
+For string "abc":
+- At i=0 ('a'): Can form strings starting with 'a' (3 possibilities)
+- At i=1 ('b'): Can form new strings starting with 'b' (2 possibilities)
+- At i=2 ('c'): Can form new string with 'c' (1 possibility)
+Total = 6 different possible strings
+*/
 
 int main()
 {

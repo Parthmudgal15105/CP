@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,6 +83,40 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    ll k, x;
+    cin >> k >> x;
+
+    ll ans = 0;
+
+    ll l = 1, r = 2 * k - 1;
+
+    ll total = (k * (k + 1)) - k; // k * k
+
+    while (l <= r)
+    {
+        ll mid = (l + r) / 2;
+
+        ll req = 0;
+
+        if (mid > k)
+        {
+            ll diff = mid - k;
+            ll val = k - diff;
+            req = total - (val * (val + 1)) / 2;
+        }
+        else
+            req = (mid * (mid - 1)) / 2;
+
+        if (x > req)
+        {
+            ans = mid;
+            l = mid + 1;
+        }
+        else
+            r = mid - 1;
+    }
+
+    cout << ans << endl;
 }
 
 /*

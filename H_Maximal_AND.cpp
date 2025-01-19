@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,6 +83,27 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, k;
+    cin >> n >> k;
+
+    int a[n];
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    int ans = 0;
+    for (int j = 30; j >= 0; j--)
+    {
+        int cnt = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] & (1 << j)) // check if a[i] ka jth bit 1 hai or not
+                cnt++;
+        }
+        cnt = n - cnt;
+        if (cnt <= k)
+            ans += (1 << j), k -= cnt; // ans mai 2^j add kardi.
+    }
+    cout << ans << endl;
 }
 
 /*

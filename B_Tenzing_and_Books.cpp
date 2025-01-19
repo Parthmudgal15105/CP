@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,10 +83,51 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    // Read input: n books per stack and target value x
+    int n, x;
+    cin >> n >> x;
 
-/*
- */
+    // Read the three stacks of books
+    vector<int> a(n), b(n), c(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+    for (int i = 0; i < n; i++)
+        cin >> c[i];
+
+    // knowledge stores the current OR of all selected books
+    int knowledge = 0;
+
+    // i, j, k are pointers for the three stacks
+    int i = 0, j = 0, k = 0;
+
+    // For stack 1: Process books from top while they don't set bits outside of x
+    // (a[i] | x) == x checks if all bits in a[i] are also set in x
+    while (i < n && (a[i] | x) == x)
+    {
+        knowledge |= a[i]; // Add this book's bits to knowledge
+        i++;
+    }
+
+    // Similar process for stack 2
+    while (j < n && (b[j] | x) == x)
+    {
+        knowledge |= b[j];
+        j++;
+    }
+
+    // Similar process for stack 3
+    while (k < n && (c[k] | x) == x)
+    {
+        knowledge |= c[k];
+        k++;
+    }
+
+    // If our final knowledge equals x, we found a valid solution
+    // Otherwise, it's impossible to achieve exactly x
+    cout << (knowledge == x ? "Yes\n" : "No\n");
+}
 
 int main()
 {

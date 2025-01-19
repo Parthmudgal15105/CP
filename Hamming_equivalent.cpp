@@ -71,6 +71,15 @@ long long sqrt(long long x)
     return res;
 }
 
+bool isPowerOfTwo(int x)
+{
+    return x > 0 && (x & (x - 1)) == 0;
+}
+bool isPowerOfTwoMinusOne(int x)
+{
+    return x > 0 && isPowerOfTwo(x + 1);
+}
+
 /*
 check all edge cases
 check for integer overflow
@@ -82,12 +91,55 @@ check for negative values
 */
 
 /*----------------------------------------------------------------------------*/
+
 void solve()
 {
-}
+    int n;
+    cin >> n;
+    vector<int> p(n);
+    for (auto &x : p)
+        cin >> x;
 
-/*
- */
+    map<int, vector<int>> bitMap;
+    for (auto x : p)
+    {
+        int cnt = __builtin_popcount(x);
+        bitMap[cnt].push_back(x);
+    }
+
+    for (auto &[k, v] : bitMap)
+    {
+        sort(v.begin(), v.end());
+    }
+
+    vector<int> sorted;
+
+    map<int, int> indices;
+    for (auto x : p)
+    {
+        int cnt = __builtin_popcount(x);
+        sorted.push_back(bitMap[cnt][indices[cnt]++]);
+    }
+
+    bool isSorted = true;
+    for (int i = 1; i < n; ++i)
+    {
+        if (sorted[i - 1] > sorted[i])
+        {
+            isSorted = false;
+            break;
+        }
+    }
+
+    if (isSorted)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
+}
 
 int main()
 {

@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"c:\\Users\\Parth\\Desktop\\CODE\\CP\\Codevita\\Round2\\C.cpp","tests":[{"id":1736529332981,"input":"9\n\n_ | _ _ | _\n\n_| _|| | _||_| | _ _|\n\n|_ || | ||_| | _ |_","output":"5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Parth\\Desktop\\CODE\\CP\\Codevita\\Round2\\C.cpp","group":"local","local":true}

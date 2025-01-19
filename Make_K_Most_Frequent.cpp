@@ -84,6 +84,64 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, k;
+    cin >> n >> k;
+    int count = 0;
+
+    map<int, int> freq;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+        freq[a[i]]++;
+        if (a[i] == k)
+        {
+            count++;
+        }
+    }
+
+    int maxFreq = 0;
+    for (const auto &entry : freq)
+    {
+        maxFreq = max(maxFreq, entry.second);
+    }
+
+    if (maxFreq <= count)
+    {
+        cout << 0 << '\n';
+        return;
+    }
+
+    map<int, int> suffix;
+    int maxSuffix = 0;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        suffix[a[i]]++;
+        maxSuffix = max(maxSuffix, suffix[a[i]]);
+
+        if (suffix[k] >= maxSuffix)
+        {
+            cout << 1 << nl;
+            return;
+        }
+    }
+
+    map<int, int> suffix;
+    int maxSuffix = 0;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        suffix[a[i]]++;
+        maxSuffix = max(maxSuffix, suffix[a[i]]);
+
+        if (suffix[k] >= maxSuffix)
+        {
+            cout << 1 << nl;
+            return;
+        }
+    }
+
+    cout << 2 << endl;
 }
 
 /*

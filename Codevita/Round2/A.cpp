@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,10 +83,51 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    int numPoints;
+    cin >> numPoints;
+    vector<pair<ll, ll>> points(numPoints);
+    for (int i = 0; i < numPoints; i++)
+    {
+        cin >> points[i].first >> points[i].second;
+    }
 
-/*
- */
+    sort(points.begin(), points.end());
+
+    vector<pair<ll, ll>> bowlShape;
+    for (auto &currentPoint : points)
+    {
+        while (bowlShape.size() >= 2)
+        {
+            ll prevY = bowlShape[bowlShape.size() - 2].second;
+
+            ll prevX = bowlShape[bowlShape.size() - 2].first;
+
+            ll currX = bowlShape[bowlShape.size() - 1].first;
+            ll nextY = currentPoint.second;
+            ll currY = bowlShape[bowlShape.size() - 1].second;
+            ll nextX = currentPoint.first;
+
+            ll crossProduct = (currX - prevX) * (nextY - prevY) -
+                              (currY - prevY) * (nextX - prevX);
+
+            if (crossProduct <= 0)
+                bowlShape.pop_back();
+            else
+                break;
+        }
+        bowlShape.push_back(currentPoint);
+    }
+
+    long double bowlPerimeter = 0.0;
+    for (int i = 0; i + 1 < (int)bowlShape.size(); i++)
+    {
+        long double deltaX = bowlShape[i + 1].first - bowlShape[i].first;
+        long double deltaY = bowlShape[i + 1].second - bowlShape[i].second;
+        bowlPerimeter += sqrtl(deltaX * deltaX + deltaY * deltaY);
+    }
+
+    cout << (ll)llround(bowlPerimeter) << nl;
+}
 
 int main()
 {
@@ -95,7 +135,7 @@ int main()
     cin.tie(0);
 
     int t = 1;
-    cin >> t;
+
     while (t--)
         solve();
 }

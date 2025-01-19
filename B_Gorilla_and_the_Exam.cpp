@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,6 +83,52 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    if (k == n)
+    {
+        cout << 1 << endl;
+        return;
+    }
+    sort(a.begin(), a.end());
+
+    map<int, int> mp;
+    for (int i = 0; i < n; i++)
+    {
+        mp[a[i]]++;
+    }
+
+    int distinct = mp.size();
+
+    vector<pair<int, int>> freq;
+    for (auto pair : mp)
+    {
+        freq.push_back({pair.second, pair.first});
+    }
+
+    sort(freq.begin(), freq.end());
+    int diff = 0;
+    for (int i = 0; i < freq.size(); i++)
+    {
+        if (freq[i].first <= k)
+        {
+            diff++;
+            k -= freq[i].first;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    int ans = distinct - diff;
+    cout << ans << endl;
 }
 
 /*

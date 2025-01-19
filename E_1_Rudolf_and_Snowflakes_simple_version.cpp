@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,10 +83,43 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    int n;
+    cin >> n;
+    // Edge case
+    if (n < 3)
+    {
+        cout << "NO\n";
+        return;
+    }
 
-/*
- */
+    bool possible = false;
+    for (int k = 2; k <= 1000 && !possible; k++)
+    {
+        long long total = 1 + k;
+        long long leaves = k;
+        total += leaves * k;
+        leaves *= k;
+        if (total == n)
+        {
+            possible = true;
+            break;
+        }
+
+        while (total < n)
+        {
+            leaves *= k;
+            total += leaves;
+            if (total == n)
+            {
+                possible = true;
+                break;
+            }
+            if (total > n)
+                break;
+        }
+    }
+    cout << (possible ? "YES\n" : "NO\n");
+}
 
 int main()
 {

@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -84,10 +83,56 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    // Explanation: Read the size of the array
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
 
-/*
- */
+    // Explanation: Count how many numbers have each bit (0-30) set
+    vector<int> bitCounts(31, 0);
+    for (int i = 0; i < n; i++)
+    {
+        for (int bit = 0; bit < 31; bit++)
+        {
+            if (a[i] & (1 << bit))
+            {
+                bitCounts[bit]++;
+            }
+        }
+    }
+
+    // Dry run example:
+    // Suppose n=4 and a=[4, 4, 4, 4]:
+    //  - Each 4 in binary is 100 (bit 2 set)
+    //  - bitCounts[2] would become 4 (since all have bit 2 set)
+    //  - For k=1: 4 % 1 == 0 (ok). For k=2: 4 % 2 == 0 (ok). For k=3: 4 % 3 != 0 (not ok). For k=4: 4 % 4 == 0 (ok).
+    //  - So valid answers would be k=1,2,4
+
+    // Explanation: For each possible k from 1 to n,
+    // the condition for all elements to become zero is that
+    // every bitCount must be divisible by k
+    for (int k = 1; k <= n; k++)
+    {
+        bool possible = true;
+        for (int bit = 0; bit < 31; bit++)
+        {
+            if (bitCounts[bit] % k != 0)
+            {
+                possible = false;
+                break;
+            }
+        }
+        if (possible)
+        {
+            cout << k << " ";
+        }
+    }
+    cout << "\n";
+}
 
 int main()
 {

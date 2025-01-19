@@ -84,6 +84,26 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, x, m;
+    cin >> n >> x >> m;
+
+    int l, r;
+    int a = x;
+    int b = x;
+
+    for (int i = 0; i < m; i++)
+    {
+        cin >> l >> r;
+        if (l <= a && r >= a)
+        {
+            a = l;
+        }
+        if (r >= b && l <= b)
+        {
+            b = r;
+        }
+    }
+    cout << b - a + 1 << nl;
 }
 
 /*

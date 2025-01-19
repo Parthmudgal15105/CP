@@ -13,7 +13,6 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
-#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -81,13 +80,60 @@ check for array bounds
 check for negative values
 */
 
-/*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    // Read the number of boxes
+    int n;
+    cin >> n;
+    // Create vector to store weights of boxes
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 
-/*
- */
+    // Build prefix sum array for efficient range sum calculations
+    // prefix[i] stores sum of all elements from index 0 to i-1
+    vector<ll> prefix(n + 1, 0);
+    for (int i = 0; i < n; i++)
+        prefix[i + 1] = prefix[i] + a[i];
+
+    // Find all possible values of k (number of boxes per truck)
+    // k must be a divisor of n for equal distribution
+    vector<int> divisors;
+    for (int i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            divisors.push_back(i);
+            // If i*i != n, then n/i is also a divisor
+            if (i != n / i)
+                divisors.push_back(n / i);
+        }
+    }
+
+    // Variable to store maximum difference possible
+    ll ans = 0;
+    // Try each possible value of k (boxes per truck)
+    for (auto k : divisors)
+    {
+        // For current k, find minimum and maximum truck weights
+        ll mn = LLONG_MAX, mx = LLONG_MIN;
+        // Iterate through boxes in steps of k
+        // Each step represents one truck's allocation
+        for (int start = 0; start < n; start += k)
+        {
+            // Calculate sum of weights for current truck using prefix sum
+            // sumk = sum of weights from index 'start' to 'start+k-1'
+            ll sumk = prefix[start + k] - prefix[start];
+            // Update minimum and maximum truck weights seen so far
+            mn = min(mn, sumk);
+            mx = max(mx, sumk);
+        }
+        // Update answer if current distribution gives larger difference
+        ans = max(ans, mx - mn);
+    }
+    // Output the maximum possible difference
+    cout << ans << "\n";
+}
 
 int main()
 {
