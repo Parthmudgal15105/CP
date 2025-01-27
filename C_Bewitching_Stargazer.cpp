@@ -81,8 +81,38 @@ check for negative values
 */
 
 /*----------------------------------------------------------------------------*/
+// Function to compute the lucky value and count of operations
+pair<ll, ll> computeLuckyValue(ll n, ll k)
+{
+    if (n < k)
+    {
+        return {0, 0};
+    }
+    auto child = computeLuckyValue(n / 2, k);
+    ll currentSum = child.first;
+    ll multiplier = child.second;
+    if (n & 1)
+    {
+        ll middle = (n + 1) / 2;
+        ll totalSum = middle + currentSum * 2 + multiplier * middle;
+        ll totalCount = 2 * multiplier + 1;
+        return {totalSum, totalCount};
+    }
+    else
+    {
+        ll middle = n / 2;
+        ll totalSum = currentSum * 2 + multiplier * middle;
+        ll totalCount = multiplier * 2;
+        return {totalSum, totalCount};
+    }
+}
+
+// Function to handle each test case
 void solve()
 {
+    ll n, k;
+    cin >> n >> k;
+    cout << computeLuckyValue(n, k).first << nl;
 }
 
 /*

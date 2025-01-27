@@ -17,13 +17,6 @@ const ll INF = 1e18;
 
 void solve()
 {
-    int n;
-    cin >> n;
-
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-
     cout << "YES" << endl;
     cout << "NO" << endl;
 }

@@ -13,6 +13,7 @@ using namespace std;
 // Types of declarations /////////////////////////////////
 #define ui unsigned int
 #define us unsigned short
+#define all(x) x.begin(), x.end()
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -24,11 +25,12 @@ using namespace std;
 #define pii pair<int, int>
 
 // Odd Even /////////////////////////////////////////////
+// Utility functions for checking odd/even numbers
 bool odd(ll num) { return ((num & 1) == 1); }
 bool even(ll num) { return ((num & 1) == 0); }
 
 //////////////////////////////////////////////////////// Prime
-
+// Prime number checking function
 bool isPrime(int n)
 {
     for (int i = 2; i * i <= n; i++)
@@ -40,6 +42,7 @@ bool isPrime(int n)
 }
 
 ///////////////////////////////////////////////////////// LCM GCD
+// GCD and LCM calculation functions
 long long gcd(long long a, long long b)
 {
     while (b != 0)
@@ -55,7 +58,7 @@ long long lcm(long long a, long long b)
     return (a / gcd(a, b)) * b;
 }
 ////////////////////////////////////////////////////////// SQR ROOT
-
+// Binary search implementation for square root
 long long sqrt(long long x)
 {
     long long s = 0, e = 2e9, res = s;
@@ -83,58 +86,42 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-    // Read the number of impressions
-    int n;
-    cin >> n;
 
-    // Initialize vectors:
-    // l and r store the range [l_i, r_i] for each impression
-    // f1 counts the frequency of forced values (where l_i == r_i)
-    // f2 is used to create a prefix sum of forced values
-    vector<int> l(n), r(n), f1(2 * n + 1, 0), f2(2 * n + 1, 0);
-
-    // Read each impression's range and update forced counts
-    for (int i = 0; i < n; ++i)
+    int n, k, ans = 0;
+    cin >> n >> k;
+    vector<int> v(n);
+    for (int i = 0; i < n; i++)
     {
-        cin >> l[i] >> r[i];
-        if (l[i] == r[i])
+        cin >> v[i];
+    }
+    sort(v.begin(), v.end());
+    int l = 0, r = n - 1;
+    while (l < r)
+    {
+        if (v[l] + v[r] == k)
         {
-            f1[l[i]]++;   // Increment count for forced value l[i]
-            f2[l[i]] = 1; // Mark l[i] as a forced value
+            ans++;
+            l++, r--;
         }
-    }
-
-    // Create prefix sum of forced values to quickly query ranges
-    for (int i = 1; i <= 2 * n; ++i)
-    {
-        f2[i] += f2[i - 1];
-    }
-
-    // Prepare the result string
-    for (int i = 0; i < n; ++i)
-    {
-        // Check if all values in [l[i], r[i]] are forced
-        if (f2[r[i]] - f2[l[i] - 1] == (r[i] - l[i] + 1))
+        else if (v[l] + v[r] > k)
         {
-            // humne 1 laga rkha array mai all places jaha l==r and fir prefix sum le liya
-            // eg --> 1 2 3 4 hai and array mai 1 1 1 0 hai due to (1,1),(2,2),(3,3),(1,4) ... toh hum (3 - 1) - 1 == (2-0) + 1(prefix sum of set values = all values of range l to r toh we cannot pick any unique element)
-
-            cout << (l[i] == r[i] && f1[l[i]] == 1 ? '1' : '0');
+            r--;
         }
         else
         {
-            // If there's at least one value in the range that's not forced, mark as '1'
-            cout << '1';
+            l++;
         }
     }
-    cout << nl;
+    cout << ans << '\n';
 }
 
 int main()
 {
+    // Fast I/O optimization
     ios::sync_with_stdio(0);
     cin.tie(0);
 
+    // Process multiple test cases
     int t = 1;
     cin >> t;
     while (t--)
