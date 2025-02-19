@@ -72,9 +72,8 @@ long long sqrt(long long x)
 }
 /*
     vi arr(n);
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
         cin>>arr[i];
-    }
 */
 
 /*
@@ -88,11 +87,131 @@ check for negative values
 */
 
 /*----------------------------------------------------------------------------*/
+
+ll countPairs(const vector<ll> &arr, int n, long long target)
+{
+    ll cnt = 0;
+    int l = 0, r = n - 1;
+    while (l < r)
+    {
+        if (arr[l] + arr[r] <= target)
+        {
+            cnt += (r - l);
+            l++;
+        }
+        else
+        {
+            r--;
+        }
+    }
+    return cnt;
+}
+
 void solve()
 {
+    int n;
+    long long x, y;
+    cin >> n >> x >> y;
+    vector<ll> arr(n);
+    long long total = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        total += arr[i];
+    }
+
+    sort(arr.begin(), arr.end());
+    long long L = total - y;
+    long long R = total - x;
+
+    ll ans = countPairs(arr, n, R) - countPairs(arr, n, L - 1);
+    cout << ans << '\n';
 }
 
 /*
+You are given a sequence a
+, consisting of n
+ integers, where the i
+-th element of the sequence is equal to ai
+. You are also given two integers x
+ and y
+ (x≤y
+).
+
+A pair of integers (i,j)
+ is considered interesting if the following conditions are met:
+
+1≤i<j≤n
+;
+if you simultaneously remove the elements at positions i
+ and j
+ from the sequence a
+, the sum of the remaining elements is at least x
+ and at most y
+.
+Your task is to determine the number of interesting pairs of integers for the given sequence a
+.
+
+Input
+The first line contains one integer t
+ (1≤t≤104
+) — the number of test cases.
+
+Each test case consists of two lines:
+
+The first line contains three integers n,x,y
+ (3≤n≤2⋅105
+, 1≤x≤y≤2⋅1014
+);
+The second line contains n
+ integers a1,a2,…,an
+ (1≤ai≤109
+).
+Additional constraint on the input: the sum of n
+ across all test cases does not exceed 2⋅105
+.
+
+Output
+For each test case, output one integer — the number of interesting pairs of integers for the given sequence a
+.
+
+Example
+InputCopy
+7
+4 8 10
+4 6 3 6
+6 22 27
+4 9 6 3 4 5
+3 8 10
+3 2 1
+3 1 1
+2 3 4
+3 3 6
+3 2 1
+4 4 12
+3 3 2 1
+6 8 8
+1 1 2 2 2 3
+OutputCopy
+4
+7
+0
+0
+1
+5
+6
+Note
+In the first example, there are 4
+ interesting pairs of integers:
+
+(1,2)
+;
+(1,4)
+;
+(2,3)
+;
+(3,4)
+.
  */
 
 int main()

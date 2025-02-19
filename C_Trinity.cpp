@@ -90,6 +90,39 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    sort(all(a));
+    int ans = n;
+
+    for (int i = 0; i < n; i++)
+    {
+        int left = i + 1;
+        int right = n - 1;
+        int index = i + 1;
+        while (left <= right)
+        {
+            int mid = (left + right) / 2;
+
+            if (a[i] + a[i + 1] > a[mid])
+            {
+                index = mid, left = mid + 1;
+            }
+            else
+            {
+                mid = right = mid - 1;
+            }
+        }
+        ans = min(ans, n - (index - i + 1));
+    }
+    cout << ans << nl;
 }
 
 /*

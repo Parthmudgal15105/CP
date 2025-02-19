@@ -90,6 +90,37 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    ll n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    ll oddSum = 0;
+    ll EvenSum = 0;
+
+    for (ll i = 0; i < n; i++)
+    {
+        if (i % 2 == 0)
+        {
+            EvenSum += a[i];
+        }
+        else
+        {
+            oddSum += a[i];
+        }
+    }
+    ll totalOdd = n / 2;
+    ll totalEven = ceil((double)n / 2);
+
+    if (oddSum % totalOdd == 0 && EvenSum % totalEven == 0 && oddSum / totalOdd == EvenSum / totalEven)
+    {
+        cout << "YES" << endl;
+        return;
+    }
+    cout << "NO" << nl;
 }
 
 /*

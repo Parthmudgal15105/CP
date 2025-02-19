@@ -90,10 +90,53 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    int n, m;
+    cin >> n >> m;
+    vector<vector<char>> grid(n, vector<char>(m));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> grid[i][j];
+        }
+    }
 
-/*
- */
+    int total = 0;
+    int layers = min(n, m) / 2;
+
+    for (int layer = 0; layer < layers; layer++)
+    {
+        string current = "";
+
+        // Top row
+        for (int j = layer; j < m - layer; j++)
+            current += grid[layer][j];
+
+        // Right column
+        for (int i = layer + 1; i < n - layer; i++)
+            current += grid[i][m - 1 - layer];
+
+        // Bottom row (reverse)
+        for (int j = m - 2 - layer; j >= layer; j--)
+            current += grid[n - 1 - layer][j];
+
+        // Left column (reverse)
+        for (int i = n - 2 - layer; i > layer; i--)
+            current += grid[i][layer];
+
+        // Add circular condition: append first three chars to handle wrap-around
+        current += current.substr(0, 3);
+
+        // Count occurrences of "1543"
+        for (int i = 0; i < current.length() - 3; i++)
+        {
+            if (current.substr(i, 4) == "1543")
+                total++;
+        }
+    }
+
+    cout << total << "\n";
+}
 
 int main()
 {

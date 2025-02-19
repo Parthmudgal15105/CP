@@ -72,9 +72,8 @@ long long sqrt(long long x)
 }
 /*
     vi arr(n);
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
         cin>>arr[i];
-    }
 */
 
 /*
@@ -90,10 +89,55 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    int n;
+    long long k;
+    cin >> n >> k;
+    vector<long long> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
 
-/*
- */
+    long long ans1 = a[0];
+    for (int i = 0; i < n - 1; i++)
+    {
+        ans1 = min(ans1, a[i + 1] - a[i]);
+    }
+
+    if (k >= 3)
+    {
+        cout << 0 << nl;
+        return;
+    }
+
+    if (k == 1)
+    {
+        cout << ans1 << nl;
+        return;
+    }
+
+    // k == 2: brute force one operation
+    long long candidate2 = LLONG_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            long long v = a[j] - a[i]; // sorted: difference is non-negative
+            auto it = lower_bound(a.begin(), a.end(), v);
+            if (it != a.end())
+            {
+                candidate2 = min(candidate2, abs(*it - v));
+            }
+            if (it != a.begin())
+            {
+                it--;
+                candidate2 = min(candidate2, abs(*it - v));
+            }
+        }
+    }
+    cout << min(ans1, candidate2) << nl;
+}
 
 int main()
 {

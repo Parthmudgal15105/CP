@@ -90,6 +90,47 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vector<vector<ll>> arr(n, vector<ll>(m));
+    vector<ll> sumArr(n, 0);
+
+    for (int i = 0; i < n; i++)
+    {
+        ll s = 0;
+        for (int j = 0; j < m; j++)
+        {
+            cin >> arr[i][j];
+            s += arr[i][j];
+        }
+        sumArr[i] = s;
+    }
+
+    vector<pair<ll, int>> v;
+    for (int i = 0; i < n; i++)
+    {
+        v.push_back({sumArr[i], i});
+    }
+    sort(v.begin(), v.end(), [&](auto &a, auto &b)
+         { return a.first > b.first; });
+
+    vector<ll> merged;
+    merged.reserve(n * m);
+    for (int i = 0; i < v.size(); i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            merged.push_back(arr[v[i].second][j]);
+        }
+    }
+
+    ll ans = 0, partial = 0;
+    for (int i = 0; i < merged.size(); i++)
+    {
+        partial += merged[i];
+        ans += partial;
+    }
+    cout << ans << nl;
 }
 
 /*

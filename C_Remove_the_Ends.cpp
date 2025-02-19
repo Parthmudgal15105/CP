@@ -90,10 +90,45 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
-}
+    int n;
+    cin >> n;
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
 
-/*
- */
+    vector<ll> prefix(n + 1, 0);
+    for (int i = 0; i < n; i++)
+    {
+        ll value = 0;
+        if (arr[i] > 0)
+        {
+            value = arr[i];
+        }
+        prefix[i + 1] = prefix[i] + value;
+    }
+
+    vector<ll> suffix(n + 1, 0);
+    suffix[n] = 0;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        ll value = 0;
+        if (arr[i] < 0)
+        {
+            value = -arr[i];
+        }
+        suffix[i] = suffix[i + 1] + value;
+    }
+
+    ll maxCoins = 0;
+    for (int i = 0; i <= n; i++)
+    {
+        maxCoins = max(maxCoins, prefix[i] + suffix[i]);
+    }
+
+    cout << maxCoins << nl;
+}
 
 int main()
 {

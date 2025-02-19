@@ -90,6 +90,45 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    string s;
+    cin >> s;
+    ll n = s.size();
+    ll p1 = 0;
+    while (p1 < n && s[p1] == '1')
+    {
+        p1++;
+    }
+
+    if (p1 == n)
+    {
+        cout << "1 " << n << " 1 1\n";
+        return;
+    }
+
+    ll len = n - p1;
+
+    vector<pair<string, pair<ll, ll>>> v;
+
+    for (ll i = 0; i < p1; i++)
+    {
+        string ans;
+        for (ll j = 0; j < len; j++)
+        {
+            if (s[j + p1] == s[j + i])
+            {
+                ans += '0';
+            }
+            else
+            {
+                ans += '1';
+            }
+        }
+        v.push_back(make_pair(ans, make_pair(i, i + len - 1)));
+    }
+
+    auto it = *max_element(v.begin(), v.end());
+
+    cout << "1 " << n << ' ' << it.second.first + 1 << ' ' << it.second.second + 1 << nl;
 }
 
 /*

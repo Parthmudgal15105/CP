@@ -90,11 +90,58 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    // Read input size and the array elements.
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    // Frequency array for each element in a.
+    vector<int> freq(n + 1, 0);
+    for (int i = 0; i < n; i++)
+    {
+        freq[a[i]]++;
+    }
+    // Mark positions allowed if the element appears exactly once.
+    vector<bool> allowed(n, false);
+    for (int i = 0; i < n; i++)
+    {
+        if (freq[a[i]] == 1)
+            allowed[i] = true;
+    }
+    // Use two pointers to find the maximum contiguous segment of allowed indices.
+    int best = 0, bestL = -1, bestR = -1;
+    for (int i = 0; i < n;)
+    {
+        if (!allowed[i])
+        {
+            i++;
+            continue;
+        }
+        int j = i;
+        // Extend segment while allowed positions continue.
+        while (j < n && allowed[j])
+            j++;
+        int len = j - i;
+        // Update best segment if current segment length is greater.
+        if (len > best)
+        {
+            best = len;
+            bestL = i;
+            bestR = j - 1;
+        }
+        i = j;
+    }
+    // Output the result in 1-indexed format if a valid segment found; otherwise, output 0.
+    if (best > 0)
+        cout << bestL + 1 << sp << bestR + 1 << nl;
+    else
+        cout << 0 << nl;
 }
-
 /*
  */
-
 int main()
 {
     ios::sync_with_stdio(0);

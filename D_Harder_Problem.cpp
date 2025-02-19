@@ -71,9 +71,9 @@ long long sqrt(long long x)
     return res;
 }
 /*
-    vi arr(n);
+    vi a(n);
     for(int i=0; i<n; i++){
-        cin>>arr[i];
+        cin>>a[i];
     }
 */
 
@@ -90,6 +90,32 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    ll n;
+    cin >> n;
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    set<ll> s;
+    for (int i = 0; i < n; i++)
+    {
+        s.insert(i + 1);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (s.find(a[i]) != s.end())
+        {
+            cout << a[i] << ' ';
+            s.erase(a[i]);
+        }
+        else
+        {
+            cout << *s.begin() << ' ';
+            s.erase(s.begin());
+        }
+    }
+    cout << nl;
 }
 
 /*

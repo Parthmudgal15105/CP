@@ -90,6 +90,45 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<ll> a(n + 1);
+
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    if (n == 1)
+    {
+        cout << 1 << "\n";
+        return;
+    }
+    else if (n % 2 == 0)
+    {
+        ll ans = 0;
+        for (int i = 1; i <= n; i += 2)
+        {
+            ans = max(ans, a[i + 1] - a[i]);
+        }
+        cout << ans << "\n";
+    }
+    else
+    {
+        ll ans = 2e18;
+        for (int i = 1; i <= n; i += 2)
+        {
+            ll res = 0;
+            for (int j = 1; j <= n; j += 2)
+            {
+                if (i == j)
+                {
+                    j--;
+                    continue;
+                }
+                res = max(res, a[j + 1] - a[j]);
+            }
+            ans = min(ans, res);
+        }
+        cout << max(1ll, ans) << "\n";
+    }
 }
 
 /*

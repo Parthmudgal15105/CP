@@ -72,9 +72,8 @@ long long sqrt(long long x)
 }
 /*
     vi arr(n);
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
         cin>>arr[i];
-    }
 */
 
 /*
@@ -90,9 +89,54 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<int> a(1001);
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
+    int now = n;
+    long long ans = -1e18;
+    for (int i = 1; i <= n; i++)
+    {
+        long long sum = 0;
+        for (int i = 1; i <= now; i++)
+        {
+            sum = (sum + a[i]);
+        }
+        if (i == 1)
+        {
+            ans = max(ans, sum);
+        }
+        else
+        {
+            ans = max(ans, max(sum, (-sum)));
+        }
+        for (int i = 1; i < now; i++)
+        {
+            a[i] = (a[i + 1] - a[i]);
+        }
+        now--;
+    }
+    cout << ans << endl;
 }
 
 /*
+The first line of input contains a single integer t
+ (1≤t≤100
+) — the number of input test cases.
+
+The first line of each test case contains a single integer n
+ (1≤n≤50
+) — the length of sequence a
+.
+
+The second line of each test case contains n
+ integers a1,a2,…,an
+ (|ai|≤1000
+) — the sequence a
+.
  */
 
 int main()
@@ -103,5 +147,7 @@ int main()
     int t = 1;
     cin >> t;
     while (t--)
+    {
         solve();
+    }
 }

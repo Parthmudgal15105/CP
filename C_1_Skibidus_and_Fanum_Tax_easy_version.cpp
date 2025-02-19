@@ -90,6 +90,45 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    vi b(m);
+    for (int i = 0; i < m; i++)
+    {
+        cin >> b[i];
+    }
+    ll B = b[0];
+    ll prev = INT_MIN;
+    bool possible = true;
+    for (int i = 0; i < n; i++)
+    {
+        ll x = a[i];
+        ll y = B - x;
+        ll mn = min(x, y);
+        ll mx = max(x, y);
+        if (mn >= prev)
+        {
+            prev = mn;
+        }
+        else if (mx >= prev)
+        {
+            prev = mx;
+        }
+        else
+        {
+            possible = false;
+            break;
+        }
+    }
+    if (possible)
+        cout << "YES" << nl;
+    else
+        cout << "NO" << nl;
 }
 
 /*

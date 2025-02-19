@@ -90,6 +90,30 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    set<ll> s{0};
+    ll curr = 0;
+    ll ans = 0;
+
+    for (ll i = 0; i < n; i++)
+    {
+        curr += a[i];
+        if (s.count(curr))
+        {
+            ans++;
+            curr = 0;
+            s.clear();
+        }
+        s.emplace(curr);
+    }
+    cout << ans << nl;
 }
 
 /*

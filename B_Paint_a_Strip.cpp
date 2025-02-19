@@ -90,6 +90,18 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n;
+    cin >> n;
+
+    int curr = 1;
+    int ans = 1;
+
+    while (curr < n)
+    {
+        curr = curr * 2 + 2;
+        ans++;
+    }
+    cout << ans << nl;
 }
 
 /*

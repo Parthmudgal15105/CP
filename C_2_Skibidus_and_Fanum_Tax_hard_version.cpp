@@ -90,6 +90,44 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    vi b(m);
+    for (int i = 0; i < m; i++)
+    {
+        cin >> b[i];
+    }
+    sort(b.begin(), b.end());
+
+    ll prev = INT_MIN;
+
+    for (int i = 0; i < n; i++)
+    {
+        ll candidate1 = INT_MAX, candidate2 = INT_MAX;
+
+        if (a[i] >= prev)
+        {
+            candidate1 = a[i];
+        }
+        ll req = prev + a[i];
+        auto it = lower_bound(b.begin(), b.end(), req);
+        if (it != b.end())
+            candidate2 = (*it) - a[i];
+
+        ll candidate = min(candidate1, candidate2);
+        if (candidate == INT_MAX)
+        {
+            cout << "NO" << nl;
+            return;
+        }
+        prev = candidate;
+    }
+    cout << "YES" << nl;
 }
 
 /*

@@ -90,9 +90,35 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    ll n, mini, heal;
+    cin >> n >> mini >> heal;
+    string spots;
+    cin >> spots;
+
+    ll count = 0;
+    ll ans = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        if (spots[i] == '0')
+        {
+            count++;
+            if (count == mini)
+            {
+                ans++;
+                count = 0;
+                i += heal - 1;
+            } 
+        }
+        else
+        {
+            count = 0;
+        }
+    }
+    cout << ans << nl;
 }
 
 /*
+
  */
 
 int main()

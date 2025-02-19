@@ -90,6 +90,44 @@ check for negative values
 /*----------------------------------------------------------------------------*/
 void solve()
 {
+    int n;
+    cin >> n;
+    string s, x;
+    cin >> s >> x;
+    int zero = 0;
+    int one = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == '0')
+        {
+            zero++;
+        }
+        else
+        {
+            one++;
+        }
+    }
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (zero == 0 || one == 0)
+        {
+            cout << "NO" << nl;
+            return;
+        }
+
+        if (x[i] == '0')
+        {
+            one--;
+        }
+        else
+        {
+            zero--;
+        }
+    }
+
+    cout << "YES" << nl;
 }
 
 /*
