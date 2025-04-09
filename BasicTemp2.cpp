@@ -71,13 +71,6 @@ long long sqrt(long long x)
     return res;
 }
 /*
-    vi arr(n);
-    for(int i=0; i<n; i++){
-        cin>>arr[i];
-    }
-*/
-
-/*
 check all edge cases
 check for integer overflow
 check for corner cases
@@ -86,8 +79,16 @@ check for time complexity
 check for array bounds
 check for negative values
 */
-
+/*
+    vi a(n);
+    for(int i=0; i<n; i++){
+        cin>>a[i];
+    }
+*/
+#define cno cout << "NO\n"
+#define cyes cout << "YES\n"
 /*----------------------------------------------------------------------------*/
+
 void solve()
 {
 }
