@@ -51,7 +51,6 @@ long long gcd(long long a, long long b)
     }
     return a;
 }
-
 long long lcm(long long a, long long b)
 {
     return (a / gcd(a, b)) * b;
@@ -92,6 +91,58 @@ check for negative values
 
 void solve()
 {
+    int l[3], b[3];
+    cin >> l[0] >> b[0] >> l[1] >> b[1] >> l[2] >> b[2];
+
+    vector<int> idx = {0, 1, 2};
+    do
+    {
+        int l1 = l[idx[0]], b1 = b[idx[0]];
+        int l2 = l[idx[1]], b2 = b[idx[1]];
+        int l3 = l[idx[2]], b3 = b[idx[2]];
+
+        // 1. All in a row horizontally (same height, sum of widths == height)
+        if (b1 == b2 && b2 == b3 && l1 + l2 + l3 == b1)
+        {
+            cyes;
+            return;
+        }
+        // 2. All in a column vertically (same width, sum of heights == width)
+        if (l1 == l2 && l2 == l3 && b1 + b2 + b3 == l1)
+        {
+            cyes;
+            return;
+        }
+        // 3. L-shape: two side by side, third fills below
+        // Place l1 x b1 and l2 x b2 side by side, l3 x b3 below
+        int side = max(l1 + l2, l3);
+        if (b1 == b2 && l1 + l2 == side && b1 + b3 == side && l3 == side && b3 == side - b1)
+        {
+            cyes;
+            return;
+        }
+        // Another L-shape variant: two stacked, third fills right
+        side = max(b1 + b2, b3);
+        if (l1 == l2 && b1 + b2 == side && l1 + l3 == side && b3 == side && l3 == side - l1)
+        {
+            cyes;
+            return;
+        }
+        // General L-shape: two on top, one below, all together form a square
+        if (b1 == b2 && l1 + l2 == l3 && b1 + b3 == l3)
+        {
+            cyes;
+            return;
+        }
+        // General L-shape: two on left, one on right, all together form a square
+        if (l1 == l2 && b1 + b2 == b3 && l1 + l3 == b3)
+        {
+            cyes;
+            return;
+        }
+    } while (next_permutation(idx.begin(), idx.end()));
+
+    cno;
 }
 
 /*

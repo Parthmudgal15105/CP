@@ -92,49 +92,46 @@ check for negative values
 void solve()
 {
     int n;
-    cin >> n; // read the size of the array
-    vi a(n);
+    cin >> n;
+    vector<int> a(n);
+    for (auto &x : a)
+        cin >> x;
+
+    set<int> prev, total;
+    int part_cnt = 0;
+    // prev: stores the set of elements in the previous partition
+    // total: accumulates all unique elements seen so far in the current segment
+
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i]; // read each element
-        a[i]--;      // shift to 0-based for indexing
-    }
+        total.insert(a[i]); // add current element to the running set
 
-    int ans = 0;      // number of cool segments found
-    int tot = 0;      // total distinct elements in the current suffix
-    vector<int> c(n); // frequency count for each value in suffix
-
-    // First pass: count distinct elements over the entire array
-    for (int i = 0; i < n; i++)
-    {
-        // if c[a[i]] == 0, it's a new distinct => add 1; then increment frequency
-        tot += !c[a[i]]++;
-    }
-
-    int cur = tot;          // distinct elements still needed to close current segment
-    vector<int> vis(n, -1); // marker to ensure each distinct is counted once per segment
-
-    // Greedily iterate from end to start to form segments
-    for (int i = n - 1; i >= 0; i--)
-    {
-        // if this value hasn't been seen in the current segment (ans)
-        if (vis[a[i]] != ans)
+        if (prev.count(a[i]))
         {
-            vis[a[i]] = ans; // mark it as seen for segment number 'ans'
-            cur--;           // one less distinct to cover in this segment
+            // If current element was in the previous partition, remove it from prev
+            prev.erase(a[i]);
         }
-        // remove this occurrence from suffix: if frequency goes from 1->0, tot--
-        tot -= !--c[a[i]];
 
-        // if we've covered all distinct for this segment, close it
-        if (cur == 0)
+        if (prev.size() == 0)
         {
-            ans++;     // increment segment count
-            cur = tot; // reset 'cur' to cover distinct in the remaining prefix
+            // If prev is empty, it means all elements from the previous partition
+            // have been seen again in the current segment, so we can make a new partition.
+            part_cnt++;
+
+            // Here, we set prev = total.
+            // This means prev now contains all unique elements seen so far (i.e., in all previous partitions).
+            // So, in the next segment, we will require all these elements to appear again before making another partition.
+            //
+            // Your question: "doesn't that get the elements of all previous partitions instead of just the last one?"
+            // Yes, that's correct. This approach ensures that every element from all previous segments
+            // must appear in the next segment before a new partition can be made.
+            // This is necessary to satisfy the "cool partition" condition:
+            // every element in a segment must also appear in the next segment.
+            prev = total;
         }
     }
 
-    cout << ans << nl; // output the maximum number of cool segments
+    cout << part_cnt << nl;
 }
 
 /*

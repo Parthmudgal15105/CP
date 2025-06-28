@@ -70,7 +70,6 @@ long long sqrt(long long x)
     }
     return res;
 }
-
 /*
 check all edge cases
 check for integer overflow
@@ -80,68 +79,23 @@ check for time complexity
 check for array bounds
 check for negative values
 */
-
+/*
+    vi a(n);
+    for(int i=0; i<n; i++){
+        cin>>a[i];
+    }
+*/
+#define cno cout << "NO\n"
+#define cyes cout << "YES\n"
 /*----------------------------------------------------------------------------*/
+
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    int count = 0;
+    int a, b, c, d;
 
-    map<int, int> freq;
+    cin >> a >> b >> c >> d;
 
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-        freq[a[i]]++;
-        if (a[i] == k)
-        {
-            count++;
-        }
-    }
-
-    int maxFreq = 0;
-    for (const auto &entry : freq)
-    {
-        maxFreq = max(maxFreq, entry.second);
-    }
-
-    if (maxFreq <= count)
-    {
-        cout << 0 << '\n';
-        return;
-    }
-
-    map<int, int> suffix;
-    int maxSuffix = 0;
-    for (int i = n - 1; i >= 0; i--)
-    {
-        suffix[a[i]]++;
-        maxSuffix = max(maxSuffix, suffix[a[i]]);
-
-        if (suffix[k] >= maxSuffix)
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    map<int, int> suffix;
-    int maxSuffix = 0;
-    for (int i = n - 1; i >= 0; i--)
-    {
-        suffix[a[i]]++;
-        maxSuffix = max(maxSuffix, suffix[a[i]]);
-
-        if (suffix[k] >= maxSuffix)
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    cout << 2 << endl;
+    cout << 15 - (a + b + c + d) << nl;
 }
 
 /*
@@ -153,7 +107,6 @@ int main()
     cin.tie(0);
 
     int t = 1;
-    cin >> t;
     while (t--)
         solve();
 }

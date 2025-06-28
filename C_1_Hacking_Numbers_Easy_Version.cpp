@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
-
 #include <algorithm>
-
 #include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
@@ -28,14 +25,8 @@ using namespace std;
 #define pii pair<int, int>
 
 // Odd Even /////////////////////////////////////////////
-bool odd(ll num)
-{
-    return ((num & 1) == 1);
-}
-bool even(ll num)
-{
-    return ((num & 1) == 0);
-}
+bool odd(ll num) { return ((num & 1) == 1); }
+bool even(ll num) { return ((num & 1) == 0); }
 
 //////////////////////////////////////////////////////// Prime
 
@@ -60,6 +51,7 @@ long long gcd(long long a, long long b)
     }
     return a;
 }
+
 long long lcm(long long a, long long b)
 {
     return (a / gcd(a, b)) * b;
@@ -97,17 +89,60 @@ check for negative values
 #define cno cout << "NO\n"
 #define cyes cout << "YES\n"
 /*----------------------------------------------------------------------------*/
+ll add(ll y)
+{
+    cout << "add " << y << endl;
+    ll r;
+    cin >> r;
+    return r;
+}
+
+ll mul(ll y)
+{
+    cout << "mul " << y << endl;
+    ll r;
+    cin >> r;
+    return r;
+}
+
+ll div(ll y)
+{
+    cout << "div " << y << endl;
+    ll r;
+    cin >> r;
+    return r;
+}
+
+ll dig()
+{
+    cout << "digit" << endl;
+    ll r;
+    cin >> r;
+    return r;
+}
+
+ll done()
+{
+    cout << "!" << endl;
+    ll r;
+    cin >> r;
+    if (r == -1)
+        exit(0);
+    return r;
+}
 
 void solve()
 {
-    int x, y, z;
-    cin >> x >> y >> z;
-
-    int total = x + y + z;
-    int mx = max({x, y, z});
-    int ans = max(0, total - mx);
-
-    cout << ans << nl;
+    ll n;
+    cin >> n;
+    dig();
+    dig();
+    add(-8);
+    add(-4);
+    add(-2);
+    add(-1);
+    add(n - 1);
+    done();
 }
 
 /*
