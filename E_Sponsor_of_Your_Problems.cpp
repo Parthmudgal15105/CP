@@ -89,10 +89,33 @@ check for negative values
 #define cyes cout << "YES\n"
 /*----------------------------------------------------------------------------*/
 
-void solve()
+int dp[10][2][2];
+
+int solve_dp(const string &l, const string &r, int pos = 0, bool tightL = 1, bool tightR = 1)
 {
+    if (pos == l.size())
+        return 0;
+    int &res = dp[pos][tightL][tightR];
+    if (res != -1)
+        return res;
+    res = INT_MAX;
+    int lo = tightL ? (l[pos] - '0') : 0;
+    int hi = tightR ? (r[pos] - '0') : 9;
+    for (int d = lo; d <= hi; ++d)
+    {
+        int add = (d == l[pos] - '0') + (d == r[pos] - '0');
+        res = min(res, add + solve_dp(l, r, pos + 1, tightL && (d == lo), tightR && (d == hi)));
+    }
+    return res;
 }
 
+void solve()
+{
+    string l, r;
+    cin >> l >> r;
+    memset(dp, -1, sizeof(dp));
+    cout << solve_dp(l, r) << nl;
+}
 /*
 For two integers a
  and b

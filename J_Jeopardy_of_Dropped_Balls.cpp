@@ -107,6 +107,47 @@ ll binom(ll a, ll b)
 
 void solve()
 {
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<vector<int>> grid(n + 1, vector<int>(m + 1));
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            cin >> grid[i][j];
+
+    vector<int> drops(k);
+    for (int i = 0; i < k; i++)
+    {
+        cin >> drops[i];
+        drops[i]--;
+    }
+
+    for (int ball = 0; ball < k; ball++)
+    {
+        int row = 0;
+        int col = drops[ball];
+
+        while (row < n)
+        {
+            int dir = grid[row][col];
+            if (dir == 1)
+            {
+                grid[row][col] = 2;
+                col++;
+            }
+            else if (dir == 2)
+            {
+                row++;
+            }
+            else if (dir == 3)
+            {
+                grid[row][col] = 2;
+                col--;
+            }
+        }
+        cout << (col + 1) << sp;
+    }
+    cout << nl;
 }
 /*
  */
@@ -117,7 +158,6 @@ int main()
     cin.tie(0);
 
     int t = 1;
-    cin >> t;
     while (t--)
         solve();
 }

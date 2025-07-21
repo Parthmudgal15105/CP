@@ -107,8 +107,21 @@ ll binom(ll a, ll b)
 
 void solve()
 {
+    int n, x;
+    cin >> n >> x;
+    ll ans = 0;
+    for (int a = 1; a <= min(n, x); a++)
+    {
+        for (int b = 1; a * b <= n && a + b <= x; b++)
+        {
+            int highestC = min((n - a * b) / (a + b), x - (a + b));
+            ans += highestC;
+        }
+    }
+    cout << ans << nl;
 }
 /*
+
  */
 
 int main()

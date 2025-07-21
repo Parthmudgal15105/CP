@@ -9,20 +9,17 @@ using namespace std;
 #define nl '\n'
 #define sp ' '
 #define pi 2 * acos(0.0)
-#define mod 1000000007
 
 // Types of declarations /////////////////////////////////
 #define all(x) x.begin(), x.end()
-using ll = long long;
-using vb = vector<bool>;
-using vvb = vector<vb>;
-using vi = vector<int>;
-using vvi = vector<vi>;
-using vl = vector<ll>;
-using vvl = vector<vl>;
-using vc = vector<char>;
-using vvc = vector<vc>;
-using vs = vector<string>;
+#define ull unsigned long long
+#define ll long long
+#define ld long double
+#define vll vector<ll>
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vii vector<pair<int, int>>
+#define pii pair<int, int>
 
 // Odd Even /////////////////////////////////////////////
 bool odd(ll num) { return ((num & 1) == 1); }
@@ -71,30 +68,15 @@ long long sqrt(long long x)
     }
     return res;
 }
-////////////////////////////////////////////////////////// BINOMIAL COEFF
-vl fact(2e5 + 5, 1);
-ll binPow(ll a, ll b)
-{
-    if (b == 0)
-        return 1;
-    if (b == 1)
-        return a;
-    ll ret = binPow(a, b / 2);
-    if (b % 2 == 0)
-        return (ret * ret) % mod;
-    return ((ret * ret) % mod * a) % mod;
-}
-ll inv(ll a)
-{
-    return (binPow(a, mod - 2) % mod + mod) % mod;
-}
-ll binom(ll a, ll b)
-{
-    if (b < 0 or a < 0)
-        return 0;
-    return (((fact[a] * inv(fact[b])) % mod * inv(fact[a - b])) % mod + mod) % mod;
-}
-
+/*
+check all edge cases
+check for integer overflow
+check for corner cases
+check for constraints
+check for time complexity
+check for array bounds
+check for negative values
+*/
 /*
     vi a(n);
     for(int i=0; i<n; i++){
@@ -105,9 +87,39 @@ ll binom(ll a, ll b)
 #define cyes cout << "YES\n"
 /*----------------------------------------------------------------------------*/
 
+int n;
+string s;
+vvi dp;
+
+int clear_string(int i, int j)
+{
+    if (i > j)
+        return 0; // empty substring
+    if (i == j)
+        return 1; // single character
+    int &res = dp[i][j];
+    if (res != -1)
+        return res;
+    res = 1 + clear_string(i + 1, j); // remove s[i-1] alone, then solve [i+1, j]
+    for (int k = i + 1; k <= j; k++)
+    {
+        if (s[i - 1] == s[k - 1])
+        {
+            // remove s[i-1] together with s[k-1] after clearing [i+1, k] and [k+1, j]
+            res = min(res, clear_string(i + 1, k) + clear_string(k + 1, j));
+        }
+    }
+    return res;
+}
+
 void solve()
 {
+    cin >> n;
+    cin >> s;
+    dp = vvi(n + 2, vi(n + 2, -1));
+    cout << clear_string(1, n);
 }
+
 /*
  */
 
@@ -117,7 +129,6 @@ int main()
     cin.tie(0);
 
     int t = 1;
-    cin >> t;
     while (t--)
         solve();
 }
